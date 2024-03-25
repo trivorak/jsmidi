@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "jsmidi",
   "version": "1.0.0",
   "description": "Up and Running File to Midi",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Drake Champagne",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "midi-writer-js": "^3.1.1"
   }
