@@ -22,14 +22,14 @@ try {
 bufferArray = Array.from(bufferArray,(x) => parseInt(x / 2));
 
 // Fix length of array. Must be divisible by 3. (Note,Velocity,Duration)
-for (let i = 0; bufferArray.length%3;i++) {
+for (let i = 0; bufferArray.length % 3 ; i++) {
 	bufferArray.push(0);
 }
 
 // Util Functions
 // Convert 0 - 127 to the range as defined by midi-writer-js... (0 - 100) <-for some reason
 function convertVelocity(vel){
-	return parseInt(vel/127*100);
+	return parseInt(vel / 127 * 100);
 }
 
 function getDuration(duration){
@@ -42,11 +42,10 @@ function writeMidi(data){
 // Testing adding one event. Remove after i figure out looping mech (setup as sequencer... so i don't need to calculate ticks)
 noteData = [{pitch:['E4'], duration: '4', velocity: '50'},{pitch:['c4'], duration: '4', velocity: '50'}]
 
+// Main forloop to add notes to the midi track
 for (let i = 0; i<noteData.length;i++){
 	writeMidi(noteData[i]);
 }
-
-console.log(getDuration(127))
 
 // Uncomment Below to get export functions back///////////////////////////
 // Outputs Midifile in working directory... it's ugly but it works
