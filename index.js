@@ -21,6 +21,10 @@ try {
 // Transfer array to a range of 0 - 127 for midi 
 bufferArray = Array.from(bufferArray,(x) => parseInt(x / 2));
 
+// Fix length of array. Must be divisible by 3. (Note,Velocity,Duration)
+for (let i = 0; bufferArray.length%3;i++) {
+	bufferArray.push(0)
+}
 
 // Testing adding one event. Remove after i figure out looping mech (setup as sequencer... so i don't need to calculate ticks)
 track.addEvent(new MidiWriter.NoteEvent({pitch:['E4'], duration: '4', velocity: '50'}));
