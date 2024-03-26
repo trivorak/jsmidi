@@ -27,7 +27,7 @@ bufferArray = Array.from(bufferArray,(x) => parseInt(x / 2));
 for (let i = 0; bufferArray.length % 3 ; i++) {
 	bufferArray.push(0);
 }
-
+console.log(bufferArray.length);
 // Util Functions
 // Convert 0 - 127 to the range as defined by midi-writer-js... (0 - 100) <-for some reason
 function convertVelocity(vel){
