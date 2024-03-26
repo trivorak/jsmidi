@@ -1,11 +1,13 @@
 // As Defined by Library //
 // Must Know 128 ticks per beat //
 
-const fs = require('node:fs');
-const MidiWriter = require('midi-writer-js');
+import fs from 'fs';
+import MidiWriter from 'midi-writer-js';
+import { convertNotes } from './notes.js';
+
 const track = new MidiWriter.Track();
 
-let = bufferArray = [];
+let bufferArray = [];
 
 // Open File and store array into bufferArray
 try {
@@ -40,11 +42,16 @@ function writeMidi(data){
 	track.addEvent(new MidiWriter.NoteEvent(data));
 }
 // Testing adding one event. Remove after i figure out looping mech (setup as sequencer... so i don't need to calculate ticks)
-noteData = [{pitch:['E4'], duration: '4', velocity: '50'},{pitch:['c4'], duration: '4', velocity: '50'}]
+let noteData = [{pitch:['E4'], duration: '4', velocity: '50'},{pitch:['c4'], duration: '4', velocity: '50'}]
 
 // Main forloop to add notes to the midi track
-for (let i = 0; i<noteData.length;i++){
-	writeMidi(noteData[i]);
+for (let i = 0; i<bufferArray.length;i+=3){
+	let datapacket = {
+		pitch:convertNotes(bufferArray[i]),
+		duration: getDuration(bufferArray[i+1]),
+		velocity: convertVelocity(bufferArray[i+2]),
+	}
+	writeMidi(datapacket);
 }
 
 // Uncomment Below to get export functions back///////////////////////////
@@ -52,3 +59,4 @@ for (let i = 0; i<noteData.length;i++){
 const write = new MidiWriter.Writer(track);
 const midiData = write.dataUri().split(';base64,').pop();
 fs.writeFileSync('test.midi',midiData,{encoding:'base64'});
+console.log("complete");
