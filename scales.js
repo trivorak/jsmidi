@@ -18,10 +18,10 @@ function getAllScales(){
     return scales;
 };
 
-function getScaleCount(){
+export function getScaleCount(){
     return scales.length;
 };
 
-function getScale(array, i){
-    return array[i];
+export function getScale(i){
+    return scales[i];
 };

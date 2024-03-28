@@ -50,7 +50,7 @@ const notes = [
 ];
 
 // Lookup note names from larger list
-function getNote(input){
+export function getNote(input){
     let notenumber = input % 12;
     return notes.find(x => x.id === notenumber).name;
 }
