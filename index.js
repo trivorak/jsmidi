@@ -5,7 +5,7 @@ import fs from 'fs';
 import MidiWriter from 'midi-writer-js';
 import { convertNotes } from './notes.js';
 import { getNote } from './notes.js'
-import { getScaleCount , getScale } from './scales.js'
+import { getScaleCount , getScale , getScaleArray} from './scales.js'
 
 const track = new MidiWriter.Track();
 
@@ -32,6 +32,11 @@ for (let i = 0; bufferArray.length % 3 ; i++) {
 	bufferArray.push(0);
 }
 
+// Main Scale / Key Variables
+const rootNote = bufferLength % 12;
+const scaleSelection = parseInt(bufferLength / getScaleCount()) % getScaleCount();
+const scaleArray = getScaleArray(rootNote,getScale(scaleSelection));
+
 // Util Functions
 // Convert 0 - 127 to the range as defined by midi-writer-js... (0 - 100) <-for some reason
 function convertVelocity(vel){
@@ -46,32 +51,41 @@ function writeMidi(data){
 	track.addEvent(new MidiWriter.NoteEvent(data));
 }
 
+function snapToScale(note){
+	for (let i = 0; i < scaleArray.length; i++){
+		if (scaleArray[i] > note){
+			return scaleArray[i-1]
+			break
+		}
+		else if (scaleArray[i] === note){
+			return scaleArray[i]
+			break
+		}
+	}
+}
+
 
 // Main forloop to add notes to the midi track
 for (let i = 0; i<bufferArray.length;i+=3){
 	let datapacket = {
-		pitch:convertNotes(bufferArray[i]),
+		pitch:convertNotes(snapToScale(bufferArray[i])),
 		duration: getDuration(bufferArray[i+1]),
 		velocity: convertVelocity(bufferArray[i+2]),
 	}
 	writeMidi(datapacket);
 }
 
-const rootNote = bufferLength % 12;
-const scaleSelection = parseInt(bufferLength / getScaleCount()) % getScaleCount();
 
-console.log(scaleSelection)
+
 // Print original non-adjusted buffer length
 // Print Root note
-console.log(bufferLength);
 console.log('Root Note: '+ getNote(rootNote));
+console.log(scaleSelection);
 console.log('Scale : ' + getScale(scaleSelection));
-console.log(getScaleName({scaleSelection}))
 
-
-// // Uncomment Below to get export functions back///////////////////////////
-// // Outputs Midifile in working directory... it's ugly but it works
-// const write = new MidiWriter.Writer(track);
-// const midiData = write.dataUri().split(';base64,').pop();
-// fs.writeFileSync('test.midi',midiData,{encoding:'base64'});
-// console.log("complete");
+// Uncomment Below to get export functions back///////////////////////////
+// Outputs Midifile in working directory... it's ugly but it works
+const write = new MidiWriter.Writer(track);
+const midiData = write.dataUri().split(';base64,').pop();
+fs.writeFileSync('test.midi',midiData,{encoding:'base64'});
+console.log("complete");

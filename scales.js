@@ -25,3 +25,28 @@ export function getScaleCount(){
 export function getScale(i){
     return scales[i];
 };
+
+function divmod(x,y){
+    let quote = Math.floor(x/y);
+    let remaind = x % y
+    return [quote,remaind]
+}
+
+export function getScaleArray(root,scale){
+    root -= 12;
+    let scaleArray = [];
+    let i = 0
+    while (true){
+        let resultValue = (root + scale[i%scale.length]) + (12 * Math.floor(i/scale.length));
+        if (resultValue >= 128){
+            break;
+        }
+        else if (resultValue >= 0){
+            scaleArray.push(resultValue)
+        }
+        i++;
+    }
+    return(scaleArray)
+}
+
+// console.log(getScaleArray(5,[0,2,3,5,7,9,10]))
