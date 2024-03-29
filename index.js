@@ -6,14 +6,25 @@ import MidiWriter from 'midi-writer-js';
 import { convertNotes } from './notes.js';
 import { getNote } from './notes.js'
 import { getScaleCount , getScale , getScaleArray} from './scales.js'
+import { argv } from 'node:process';
 
+
+let inputFile;
+if (argv.length > 2){
+	inputFile = argv[2]
+}else{
+	console.log("Please pass an input file as an argument")
+	process.exit()
+}
+
+console.log(inputFile)
 const track = new MidiWriter.Track();
 
 let bufferArray = [];
 
 // Open File and store array into bufferArray
 try {
-	const data = fs.readFileSync('exercise_3.png');
+	const data = fs.readFileSync(inputFile);
 
 	for (let i = 0; i < data.length; i++){
 		bufferArray.push(data[i]);
@@ -37,6 +48,8 @@ for (let i = 0; bufferArray.length % 3 ; i++) {
 const rootNote = bufferLength % 12;
 const scaleSelection = parseInt(bufferLength / getScaleCount()) % getScaleCount();
 const scaleArray = getScaleArray(rootNote,getScale(scaleSelection));
+const hiNote = Math.max(...scaleArray);
+const loNote = Math.min(...scaleArray);
 
 // Util Functions
 // Convert 0 - 127 to the range as defined by midi-writer-js... (0 - 100) <-for some reason
