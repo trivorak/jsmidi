@@ -24,7 +24,6 @@ try {
 
 // Store length of array before adjustments
 const bufferLength = bufferArray.length
-console.log(bufferLength)
 
 // Transfer array to a range of 0 - 127 for midi 
 bufferArray = Array.from(bufferArray,(x) => parseInt(x / 2));
@@ -55,7 +54,7 @@ function writeMidi(data){
 
 function snapToScale(note){
 	const hiNote = Math.max(...scaleArray);
-	
+
 	for (let i = 0; i < scaleArray.length; i++){
 		if (scaleArray[i] > note){
 			return scaleArray[i-1]
@@ -83,14 +82,12 @@ for (let i = 0; i<bufferArray.length;i+=3){
 }
 
 
-
-// Print original non-adjusted buffer length
 // Print Root note
 console.log('Root Note: '+ getNote(rootNote));
 console.log(scaleSelection);
 console.log('Scale : ' + getScale(scaleSelection));
 
-// Uncomment Below to get export functions back///////////////////////////
+
 // Outputs Midifile in working directory... it's ugly but it works
 const write = new MidiWriter.Writer(track);
 const midiData = write.dataUri().split(';base64,').pop();
