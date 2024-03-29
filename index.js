@@ -22,6 +22,7 @@ try {
 	console.error(err);
 }
 
+// Store length of array before adjustments
 const bufferLength = bufferArray.length
 
 // Transfer array to a range of 0 - 127 for midi 
