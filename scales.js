@@ -14,9 +14,6 @@ const scales = [majorScale,naturalMinorScale,harmonicMinorScale,
         melodicMinorScale,dorianScale,locrianScale,lydianScale,
         mixolydianScale,phrygianScale,pentatonicMajorScale,pentatonicMinorScale];
 
-function getAllScales(){
-    return scales;
-};
 
 export function getScaleCount(){
     return scales.length;
@@ -48,5 +45,3 @@ export function getScaleArray(root,scale){
     }
     return(scaleArray)
 }
-
-// console.log(getScaleArray(5,[0,2,3,5,7,9,10]))

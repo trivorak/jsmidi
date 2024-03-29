@@ -97,13 +97,12 @@ for (let i = 0; i<bufferArray.length;i+=3){
 
 
 // Print Root note
-console.log('Root Note: '+ getNote(rootNote));
-console.log(scaleSelection);
-console.log('Scale : ' + getScale(scaleSelection));
+console.log(`Root Note: ${getNote(rootNote)}`);
+console.log(`Scale : ${getScale(scaleSelection)}`);
 
 
 // Outputs Midifile in working directory... it's ugly but it works
 const write = new MidiWriter.Writer(track);
 const midiData = write.dataUri().split(';base64,').pop();
 fs.writeFileSync('test.midi',midiData,{encoding:'base64'});
-console.log("complete");
+console.log(`Complete`);
