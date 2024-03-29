@@ -35,10 +35,13 @@ try {
 
 // Store length of array before adjustments
 const bufferLength = bufferArray.length
-console.log(`Array Length : ${bufferLength}`)
 
 // Transfer array to a range of 0 - 127 for midi 
-bufferArray = Array.from(bufferArray,(x) => parseInt(x / 2));
+// Trim data to the first 50K elements for "less runtimes"
+// Log out Trimmed Size
+bufferArray = bufferArray.map((x) => parseInt(x / 2));
+bufferArray = bufferArray.slice(0,50000);
+console.log(`Trimmed Buffer Length: ${bufferArray.length}`)
 
 // Fix length of array. Must be divisible by 3. (Note,Velocity,Duration)
 for (let i = 0; bufferArray.length % 3 ; i++) {
