@@ -24,6 +24,7 @@ try {
 
 // Store length of array before adjustments
 const bufferLength = bufferArray.length
+console.log(bufferLength)
 
 // Transfer array to a range of 0 - 127 for midi 
 bufferArray = Array.from(bufferArray,(x) => parseInt(x / 2));
@@ -53,6 +54,8 @@ function writeMidi(data){
 }
 
 function snapToScale(note){
+	const hiNote = Math.max(...scaleArray);
+	
 	for (let i = 0; i < scaleArray.length; i++){
 		if (scaleArray[i] > note){
 			return scaleArray[i-1]
@@ -61,6 +64,9 @@ function snapToScale(note){
 		else if (scaleArray[i] === note){
 			return scaleArray[i]
 			break
+		}
+		else if (note > hiNote) {
+			return hiNote
 		}
 	}
 }
