@@ -17,3 +17,6 @@ example:
 node .\index.js C:\Users\h228797\Desktop\sandbox.db
 ```
 This will generate a midi file using sandbox.db as a "seed". Midi file will be saved where the script is called from 
+
+# Future Features
+- [ ] Change scales from 2 disconnected const varibles into json objects. This will give me the ability to console.log scale names 
