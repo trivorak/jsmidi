@@ -105,4 +105,4 @@ console.log(`Scale : ${getScale(scaleSelection)}`);
 const write = new MidiWriter.Writer(track);
 const midiData = write.dataUri().split(';base64,').pop();
 fs.writeFileSync('test.midi',midiData,{encoding:'base64'});
-console.log(`Complete`);
+console.log(`Complete\n`);
