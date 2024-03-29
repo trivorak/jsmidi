@@ -17,7 +17,7 @@ if (argv.length > 2){
 	process.exit()
 }
 
-console.log(inputFile)
+console.log(`Input File = ${inputFile}\n`)
 const track = new MidiWriter.Track();
 
 let bufferArray = [];
@@ -35,6 +35,7 @@ try {
 
 // Store length of array before adjustments
 const bufferLength = bufferArray.length
+console.log(`Array Length : ${bufferLength}`)
 
 // Transfer array to a range of 0 - 127 for midi 
 bufferArray = Array.from(bufferArray,(x) => parseInt(x / 2));

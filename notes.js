@@ -51,9 +51,17 @@ const notes = [
 
 // Lookup note names from larger list
 export function getNote(input){
+    if (isNaN(input)){
+        input = 0
+    }
     let notenumber = input % 12;
-    return notes.find(x => x.id === notenumber).name;
-}
+    try{
+        return notes.find(x => x.id === notenumber).name;
+    }catch (error){
+        console.error(error)
+    }
+}   
+
 
 // Return Octave of Note
 function getOctave(input){
