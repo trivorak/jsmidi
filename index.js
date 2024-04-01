@@ -3,8 +3,7 @@
 
 import fs from 'fs';
 import MidiWriter from 'midi-writer-js';
-import { convertNotes } from './notes.js';
-import { getNote } from './notes.js'
+import { convertNotes , getNote } from './notes.js';
 import { getScaleCount , getScale , getScaleArray} from './scales.js'
 import { argv } from 'node:process';
 
