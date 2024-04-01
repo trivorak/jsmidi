@@ -91,10 +91,6 @@ function snapToScale(note){
 // Main forloop to add notes to the midi track
 for (let i = 0; i<bufferArray.length;i+=chordNoteCount+2){
 
-	console.log(`notes =${i} - ${i+chordNoteCount-1}`)
-	console.log(`duration = ${i+chordNoteCount}`)
-	console.log(`velocity = ${i+chordNoteCount+1}`)
-	
 	let notesArray = bufferArray.slice(i,i+chordNoteCount-1);
 	notesArray = notesArray.map((x) =>convertNotes(snapToScale(x)))
 
