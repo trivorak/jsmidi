@@ -57,7 +57,6 @@ const scales = [
 ]
 
 
-
 export function getScaleCount(){
     return scales.length;
 };
@@ -68,12 +67,6 @@ export function getScale(i){
 
 export function getScaleName(i){
     return scales.find(x => x.id === i).name
-}
-
-function divmod(x,y){
-    let quote = Math.floor(x/y);
-    let remaind = x % y
-    return [quote,remaind]
 }
 
 export function getScaleArray(root,scale){
