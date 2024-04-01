@@ -7,7 +7,9 @@ import { convertNotes , getNote , getNoteDuration } from './notes.js';
 import { getScaleCount , getScale , getScaleArray, getScaleName} from './scales.js'
 import { argv } from 'node:process';
 
+const chordNoteCount = 4;
 
+// Input 
 let inputFile;
 if (argv.length > 2){
 	inputFile = argv[2]
@@ -43,8 +45,8 @@ bufferArray = bufferArray.map((x) => parseInt(x / 2));
 bufferArray = bufferArray.slice(0,50000);
 console.log(`Trimmed Buffer Length: ${bufferArray.length}`)
 
-// Fix length of array. Must be divisible by 3. (Note,Velocity,Duration)
-for (let i = 0; bufferArray.length % 3 ; i++) {
+// Fix length of array. Must be divisible by Chord Count(+Velocity,+Duration) . (Note,Velocity,Duration)
+for (let i = 0; bufferArray.length % (chordNoteCount + 2) ; i++) {
 	bufferArray.push(0);
 }
 
@@ -87,11 +89,19 @@ function snapToScale(note){
 
 
 // Main forloop to add notes to the midi track
-for (let i = 0; i<bufferArray.length;i+=3){
+for (let i = 0; i<bufferArray.length;i+=chordNoteCount+2){
+
+	console.log(`notes =${i} - ${i+chordNoteCount-1}`)
+	console.log(`duration = ${i+chordNoteCount}`)
+	console.log(`velocity = ${i+chordNoteCount+1}`)
+	
+	let notesArray = bufferArray.slice(i,i+chordNoteCount-1);
+	notesArray = notesArray.map((x) =>convertNotes(snapToScale(x)))
+
 	let datapacket = {
-		pitch:convertNotes(snapToScale(bufferArray[i])),
-		duration: getNoteDuration(bufferArray[i+1]),
-		velocity: convertVelocity(bufferArray[i+2]),
+		pitch: notesArray,
+		duration: getNoteDuration(bufferArray[i+chordNoteCount]),
+		velocity: convertVelocity(bufferArray[i+chordNoteCount+1]),
 	}
 	writeMidi(datapacket);
 }
