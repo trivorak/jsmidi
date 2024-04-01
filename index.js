@@ -35,6 +35,7 @@ try {
 // Store length of array before adjustments
 const bufferLength = bufferArray.length
 
+
 // Transfer array to a range of 0 - 127 for midi 
 // Trim data to the first 50K elements for "less runtimes"
 // Log out Trimmed Size
@@ -47,12 +48,14 @@ for (let i = 0; bufferArray.length % 3 ; i++) {
 	bufferArray.push(0);
 }
 
+
 // Main Scale / Key Variables
 const rootNote = bufferLength % 12;
 const scaleSelection = parseInt(bufferLength / getScaleCount()) % getScaleCount();
 const scaleArray = getScaleArray(rootNote,getScale(scaleSelection));
 const hiNote = Math.max(...scaleArray);
 const loNote = Math.min(...scaleArray);
+
 
 // Util Functions
 // Convert 0 - 127 to the range as defined by midi-writer-js... (0 - 100) <-for some reason
