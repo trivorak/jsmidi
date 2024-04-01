@@ -49,6 +49,30 @@ const notes = [
     }
 ];
 
+const noteDuration = [
+    {
+        id: 0,
+        duration: 16
+    },
+    {
+        id: 1,
+        duration: 8
+    },
+    {
+        id: 2,
+        duration: 4
+    },
+    {
+        id: 3,
+        duration: 2
+    },
+    {
+        id: 4,
+        duration: 1
+    }
+
+]
+
 // Lookup note names from larger list
 export function getNote(input){
     if (isNaN(input)){
@@ -74,3 +98,10 @@ export function convertNotes(input){
     let octNumber = getOctave(input);
     return noteName+String(octNumber);
 }
+
+// return the note duration based on the noteDuration const json. 
+export function getNoteDuration(input){
+    let inputLength = Math.round((input / 127) * (noteDuration.length - 1))
+    return noteDuration.find(x => x.id === inputLength).duration
+}
+

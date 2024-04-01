@@ -3,7 +3,7 @@
 
 import fs from 'fs';
 import MidiWriter from 'midi-writer-js';
-import { convertNotes , getNote } from './notes.js';
+import { convertNotes , getNote , getNoteDuration } from './notes.js';
 import { getScaleCount , getScale , getScaleArray, getScaleName} from './scales.js'
 import { argv } from 'node:process';
 
@@ -60,10 +60,6 @@ function convertVelocity(vel){
 	return parseInt(vel / 127 * 100);
 }
 
-function getDuration(duration){
-	return "T"+String(duration+1);
-}
-
 function writeMidi(data){
 	track.addEvent(new MidiWriter.NoteEvent(data));
 }
@@ -91,7 +87,7 @@ function snapToScale(note){
 for (let i = 0; i<bufferArray.length;i+=3){
 	let datapacket = {
 		pitch:convertNotes(snapToScale(bufferArray[i])),
-		duration: getDuration(bufferArray[i+1]),
+		duration: getNoteDuration(bufferArray[i+1]),
 		velocity: convertVelocity(bufferArray[i+2]),
 	}
 	writeMidi(datapacket);
