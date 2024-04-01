@@ -1,18 +1,61 @@
-const majorScale = [0,2,4,5,7,9,11];
-const naturalMinorScale = [0,2,3,5,7,8,10];
-const harmonicMinorScale = [0,2,3,5,7,8,11];
-const melodicMinorScale = [0,2,3,5,7,9,11];
-const dorianScale = [0,2,3,5,7,9,10];
-const locrianScale = [0,1,3,4,7,8,10];
-const lydianScale = [0,2,4,6,7,9,11];
-const mixolydianScale = [0,2,4,5,7,9,10];
-const phrygianScale =[0,1,3,5,7,8,10];
-const pentatonicMajorScale = [0,2,4,7,9];
-const pentatonicMinorScale = [0,3,5,7,10];
+const scales = [
+    {
+        id: 0,
+        name: 'Major',
+        notes: [0,2,4,5,7,9,11], 
+    },
+    {
+        id: 1,
+        name: 'Natural Minor',
+        notes: [0,2,3,5,7,8,10], 
+    },
+    {
+        id: 2,
+        name: 'Harmonic Minor',
+        notes: [0,2,3,5,7,8,11], 
+    },
+    {
+        id: 3,
+        name: 'Melodic Minor',
+        notes: [0,2,3,5,7,9,11], 
+    },
+    {
+        id: 4,
+        name: 'Dorian',
+        notes: [0,2,3,5,7,9,10], 
+    },
+    {
+        id: 5,
+        name: 'Locrian',
+        notes: [0,1,3,4,7,8,10], 
+    },    
+    {
+        id: 6,
+        name: 'Lydian',
+        notes: [0,2,4,6,7,9,11], 
+    }, 
+    {
+        id: 7,
+        name: 'Mixolydian',
+        notes: [0,2,4,5,7,9,10], 
+    }, 
+    {
+        id: 8,
+        name: 'Phrygian',
+        notes: [0,1,3,5,7,8,10], 
+    },     
+    {
+        id: 9,
+        name: 'Pentatonic Major',
+        notes: [0,2,4,7,9], 
+    },       
+    {
+        id: 10,
+        name: 'Pentatonic Minor',
+        notes: [0,3,5,7,10], 
+    },      
+]
 
-const scales = [majorScale,naturalMinorScale,harmonicMinorScale,
-        melodicMinorScale,dorianScale,locrianScale,lydianScale,
-        mixolydianScale,phrygianScale,pentatonicMajorScale,pentatonicMinorScale];
 
 
 export function getScaleCount(){
@@ -20,8 +63,12 @@ export function getScaleCount(){
 };
 
 export function getScale(i){
-    return scales[i];
+    return scales.find(x => x.id === i).notes;
 };
+
+export function getScaleName(i){
+    return scales.find(x => x.id === i).name
+}
 
 function divmod(x,y){
     let quote = Math.floor(x/y);

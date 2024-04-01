@@ -4,7 +4,7 @@
 import fs from 'fs';
 import MidiWriter from 'midi-writer-js';
 import { convertNotes , getNote } from './notes.js';
-import { getScaleCount , getScale , getScaleArray} from './scales.js'
+import { getScaleCount , getScale , getScaleArray, getScaleName} from './scales.js'
 import { argv } from 'node:process';
 
 
@@ -100,7 +100,7 @@ for (let i = 0; i<bufferArray.length;i+=3){
 
 // Print Root note
 console.log(`Root Note: ${getNote(rootNote)}`);
-console.log(`Scale : ${getScale(scaleSelection)}`);
+console.log(`Scale : ${getScaleName(scaleSelection)}`);
 
 
 // Outputs Midifile in working directory... it's ugly but it works
