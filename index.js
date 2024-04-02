@@ -2,6 +2,7 @@
 // Must Know 128 ticks per beat //
 
 import fs from "fs";
+import path from "node:path";
 import MidiWriter from "midi-writer-js";
 import { convertNotes, getNote, getNoteDuration } from "./notes.js";
 import {
@@ -11,8 +12,6 @@ import {
   getScaleName,
 } from "./scales.js";
 import { argv } from "node:process";
-
-// const chordNoteCount = 4;
 
 // Input
 let inputFile;
@@ -31,6 +30,7 @@ if (argv.length > 3) {
 }
 
 console.log(`Input File = ${inputFile}\n`);
+const originalFilename = path.basename(inputFile, path.extname(inputFile));
 const track = new MidiWriter.Track();
 
 let bufferArray = [];
@@ -85,10 +85,8 @@ function snapToScale(note) {
   for (let i = 0; i < scaleArray.length; i++) {
     if (scaleArray[i] > note) {
       return scaleArray[i - 1];
-      break;
     } else if (scaleArray[i] === note) {
       return scaleArray[i];
-      break;
     } else if (note > hiNote) {
       return hiNote;
     }
@@ -99,7 +97,7 @@ function snapToScale(note) {
 for (let i = 0; i < bufferArray.length; i += chordNoteCount + 2) {
   let notesArray = bufferArray.slice(i, i + chordNoteCount - 1);
   notesArray = notesArray.map((x) => convertNotes(snapToScale(x)));
-  console.log(bufferArray[i + chordNoteCount]);
+
   let datapacket = {
     pitch: notesArray,
     duration: getNoteDuration(bufferArray[i + chordNoteCount]),
@@ -115,5 +113,5 @@ console.log(`Scale : ${getScaleName(scaleSelection)}`);
 // Outputs Midifile in working directory... it's ugly but it works
 const write = new MidiWriter.Writer(track);
 const midiData = write.dataUri().split(";base64,").pop();
-fs.writeFileSync("test.midi", midiData, { encoding: "base64" });
+fs.writeFileSync(`${originalFilename}.mid`, midiData, { encoding: "base64" });
 console.log(`Complete\n`);

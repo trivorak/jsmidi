@@ -104,7 +104,5 @@ export function getNoteDuration(input) {
   if (inputLength < 0) {
     inputLength = 0;
   }
-
-  console.log(inputLength);
   return noteDuration.find((x) => x.id === inputLength).duration;
 }
