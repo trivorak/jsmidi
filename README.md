@@ -22,19 +22,25 @@ example:
 node .\index.js C:\Users\h228797\Desktop\sandbox.db
 ```
 
-This will generate a midi file using sandbox.db as a "seed". Midi file will be saved where the script is called from
+This will generate a midi file using sandbox.db as a "seed". Midi file will be saved where the script is called from.
+
+Midi file will retain the original filename. this example would return a midifile named `sandbox.db`
+
+### Example with 'note stacked' chords
+
+```
+node .\index.js C:\Users\h228797\Desktop\sandbox.db 2
+```
+
+This will generate a file of 2 note chords
 
 ## Options
 
-If you open the index.js file there's a varible that give you the option to select how many notes you'd like stacked (Chord Builder). For a monophonic line set to 1. Update as needed.
+The program accepts 2 input argument.
 
-```
-const chordNoteCount = 1;
-```
+- 1st is your file name to use for midi creation.
+- 2nd argument is how many notes you want stacked for chords.
+
+By default if you don't pass it a 2nd argument the midi file will be generated with 4 note chords.
 
 # Future Features
-
-- [x] Change scales from 2 disconnected const varibles into json objects. This will give me the ability to console.log scale names
-- [x] Fix note duration to "Snap" between 1/16 - 1 whole
-- [x] Add Chords Option
-- [x] Ability to pass arg of notes in chords
