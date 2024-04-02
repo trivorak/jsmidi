@@ -3,6 +3,7 @@
 
 import fs from "fs";
 import path from "node:path";
+import { argv } from "node:process";
 import MidiWriter from "midi-writer-js";
 import { convertNotes, getNote, getNoteDuration } from "./notes.js";
 import {
@@ -11,7 +12,6 @@ import {
   getScaleArray,
   getScaleName,
 } from "./scales.js";
-import { argv } from "node:process";
 
 // Input
 let inputFile;
@@ -26,7 +26,7 @@ let chordNoteCount;
 if (argv.length > 3) {
   chordNoteCount = parseInt(argv[3]);
 } else {
-  chordNoteCount = 4;
+  chordNoteCount = 1;
 }
 
 console.log(`Input File = ${inputFile}\n`);
@@ -94,7 +94,8 @@ function snapToScale(note) {
 
 // Main forloop to add notes to the midi track
 for (let i = 0; i < bufferArray.length; i += chordNoteCount + 2) {
-  let notesArray = bufferArray.slice(i, i + chordNoteCount - 1);
+  let notesArray = bufferArray.slice(i, i + chordNoteCount);
+  console.log(notesArray);
   notesArray = notesArray.map((x) => convertNotes(snapToScale(x)));
 
   let datapacket = {
