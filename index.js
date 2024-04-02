@@ -54,7 +54,6 @@ const bufferLength = bufferArray.length;
 // Log out Trimmed Size
 bufferArray = bufferArray.map((x) => parseInt(x / 2));
 bufferArray = bufferArray.slice(0, 50000);
-console.log(`Trimmed Buffer Length: ${bufferArray.length}`);
 
 // Fix length of array. Must be divisible by Chord Count(+Velocity,+Duration) . (Note,Velocity,Duration)
 for (let i = 0; bufferArray.length % (chordNoteCount + 2); i++) {
@@ -114,4 +113,4 @@ console.log(`Scale : ${getScaleName(scaleSelection)}`);
 const write = new MidiWriter.Writer(track);
 const midiData = write.dataUri().split(";base64,").pop();
 fs.writeFileSync(`${originalFilename}.mid`, midiData, { encoding: "base64" });
-console.log(`Complete\n`);
+console.log(`\nComplete\n`);
